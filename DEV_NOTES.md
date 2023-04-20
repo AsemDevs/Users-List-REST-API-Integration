@@ -17,7 +17,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Installing or Updating Composer. ✅
 - Chose the name of the plugin to be `User Spotlight Pro` ✅
 - Create the plugin information header. ✅
-- Add compose.json config file
+- Initiate composer.json config file ✅
+- Installing phpuinit with composer `composer require --dev phpunit/phpunit` ✅
 
 ## Implementation
 
