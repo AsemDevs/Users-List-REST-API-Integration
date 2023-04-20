@@ -19,9 +19,16 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Create the plugin information header. ✅
 - Initiate composer.json config file ✅
 - Installing phpuinit with composer `composer require --dev phpunit/phpunit` ✅
+- Prepare The custom endpoint
+- get familiar with api endpoints and the api [documentation](https://jsonplaceholder.typicode.com/guide/)
 
 ## Implementation
 
 ## Challenges and Solutions
 
 ## Improvements and Future Work
+
+- Cache
+- Error handling
+- Unit testing
+- Documentation
