@@ -12,19 +12,42 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 ## Planning and Design
 
 - I have set up the repo for the plugin, which will contain all plugin related developments, documnetations, and required files. ✅
-- I will create a separate github repo for a dockarized wordpress environment for testing the plugin and any developments could be needed.✅
+- I will create a separate github repo for a dockerized wordpress environment for testing the plugin and any developments could be needed.✅
   - This Repo will be shared in the technical interview to showcase my work in a clean wordpress environment.
 - Installing or Updating Composer. ✅
 - Chose the name of the plugin to be `User Spotlight Pro` ✅
 - Create the plugin information header. ✅
 - Initiate composer.json config file ✅
 - Installing phpuinit with composer `composer require --dev phpunit/phpunit` ✅
-- Prepare The custom endpoint
-- get familiar with api endpoints and the api [documentation](https://jsonplaceholder.typicode.com/guide/)
+- Prepare The custom endpoint ✅
+- Get familiar with API endpoints and the API [documentation](https://jsonplaceholder.typicode.com/guide/) ✅
+- Test Displaying Dummy data in the custom endpoint. ✅
+- Fetch the data from the API
+- Create needed classes to fetch the data from the API
+- Test Using phpunit and inpsyde coding standards
 
 ## Implementation
 
+- Create the plugin's main file, `user-spotlight-pro.php`, and initialize the `UserSpotlightPro` class.
+- Set up the necessary namespaces and class structure for the plugin, such as `UserSpotlightPro\REST_API\ApiService`.
+- Implement the `ApiService` class to handle the custom endpoint `/user-list/`.
+  - Register a rewrite rule and rewrite tag for the custom endpoint.
+  - Render the template with dummy data when visiting the custom endpoint.
+- Flush the rewrite rules by saving permalink settings in the WordPress admin dashboard.
+- Plugin Structure
+  - users-list-plugin/
+    - src/
+      - REST_API/
+        - ApiService.php
+      - templates/
+        - user-table-template.php
+      - UserSpotlightPro.php
+    - composer.json
+    - user-spotlight-pro.php
+
 ## Challenges and Solutions
+
+- A 404 error was encountered when trying to access the custom endpoint. This was **resolved** by adjusting the rewrite rule and tag registration, as well as flushing the rewrite rules by saving permalink settings in the WordPress admin dashboard.
 
 ## Improvements and Future Work
 

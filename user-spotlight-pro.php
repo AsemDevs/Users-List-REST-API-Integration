@@ -9,3 +9,11 @@ License: MIT
 License URI: https://opensource.org/licenses/MIT
 Text Domain: user-spotlight-pro
 */
+
+
+require __DIR__ . '/vendor/autoload.php';
+
+use UserSpotlightPro\UserSpotlightPro;
+
+$user_spotlight_pro = new UserSpotlightPro();
+$user_spotlight_pro->init();
