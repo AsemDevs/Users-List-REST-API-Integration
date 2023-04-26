@@ -22,9 +22,13 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Prepare The custom endpoint ✅
 - Get familiar with API endpoints and the API [documentation](https://jsonplaceholder.typicode.com/guide/) ✅
 - Test Displaying Dummy data in the custom endpoint. ✅
-- Fetch the data from the API
-- Create needed classes to fetch the data from the API
-- Test Using phpunit and inpsyde coding standards
+- Create needed function to fetch the data from the API. ✅
+- Fetch the data from the API and display it in the custom endpoint. ✅
+- Each row in the HTML table will show the details for a user in a custom endpoint called "user-details".
+- The content of three mandatory columns must be a link.
+- These user’s details fetching requests must be asynchronous (AJAX).
+- The user details must be shown without reloading the page.
+- Test Using phpunit and inpsyde coding standards.
 
 ## Implementation
 

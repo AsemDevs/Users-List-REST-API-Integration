@@ -1,19 +1,3 @@
-<?php
-// Dummy user data
-$user_data = [
-    [
-        'id' => 1,
-        'name' => 'John Doe',
-        'email' => 'john.doe@example.com',
-    ],
-    [
-        'id' => 2,
-        'name' => 'Jane Smith',
-        'email' => 'jane.smith@example.com',
-    ],
-];
-?>
-
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -40,3 +24,6 @@ $user_data = [
             <?php endforeach; ?>
         </tbody>
     </table>
+    <?php wp_footer(); ?>
+</body>
+</html>
