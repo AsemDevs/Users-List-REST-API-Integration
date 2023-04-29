@@ -24,8 +24,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Test Displaying Dummy data in the custom endpoint. ✅
 - Create needed function to fetch the data from the API. ✅
 - Fetch the data from the API and display it in the custom endpoint. ✅
-- Each row in the HTML table will show the details for a user in a custom endpoint called "user-details".
-- The content of three mandatory columns must be a link.
+- Each row in the HTML table will show the details for a user in a custom endpoint called "user-details". ✅
+- The content of three mandatory columns must be a link. ✅
 - These user’s details fetching requests must be asynchronous (AJAX).
 - The user details must be shown without reloading the page.
 - Test Using phpunit and inpsyde coding standards.
@@ -38,6 +38,10 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
   - Register a rewrite rule and rewrite tag for the custom endpoint.
   - Render the template with dummy data when visiting the custom endpoint.
 - Flush the rewrite rules by saving permalink settings in the WordPress admin dashboard.
+- Created a custom endpoint for user-details
+- Implemented fetch_user_details method to retrieve user data from the API
+- Updated user-table-template.php with links to user-details endpoint
+- Created a user-details-template.php to display user information
 - Plugin Structure
   - users-list-plugin/
     - src/
