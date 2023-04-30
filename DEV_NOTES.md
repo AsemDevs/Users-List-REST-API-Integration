@@ -28,7 +28,9 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - The content of three mandatory columns must be a link. ✅
 - These user's details fetching requests must be asynchronous (AJAX). ✅
 - The user details must be shown without reloading the page. ✅
-- 
+- Implement caching for API requests.
+- Improve error handling.
+- Improve accessibility and responsiveness for more presentable design.
 - Test Using PHPUnit and Inpsyde coding standards.
 
 ## Implementation
@@ -40,9 +42,9 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
   - Render the template with dummy data when visiting the custom endpoint.
 - Flush the rewrite rules by saving permalink settings in the WordPress admin dashboard.
 - Created a custom endpoint for `user-details`
-- Implemented fetch_user_details method to retrieve user data from the API
-- Updated user-table-template.php with links to user-details endpoint
-- Created a user-details-template.php to display user information
+- Implemented `fetch_user_details` method to retrieve user data from the API
+- Updated `user-table-template.php` with links to user-details endpoint
+- Created a `user-details-template.php` to display user information
 - Implemented AJAX for user details fetching without page reload
 - Plugin Structure
   - users-list-plugin/
@@ -63,7 +65,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 
 - A 404 error was encountered when trying to access the custom endpoint. This was **resolved** by adjusting the rewrite rule and tag registration, as well as flushing the rewrite rules by saving permalink settings in the WordPress admin dashboard.
 - Challenge: Integrating Fetch API with the custom user-details endpoint
-**Solution:** Initially, the user details were fetched using the custom user-details endpoint, and it was required to return JSON data instead of HTML. To achieve this, a query parameter ?json=1 was appended to the user-details URL, and the corresponding PHP code was updated to check for this query parameter. If the parameter was present and set to '1', the PHP code would return JSON data instead of rendering the HTML template. This allowed the Fetch API in the user-details.js script to request and receive user details in JSON format, enabling the plugin to display user details asynchronously without reloading the page.
+**Solution:** Initially, the user details were fetched using the custom user-details endpoint, and it was required to return JSON data instead of HTML. To achieve this, a query parameter `?json=1` was appended to the user-details URL, and the corresponding PHP code was updated to check for this query parameter. If the parameter was present and set to '1', the PHP code would return JSON data instead of rendering the HTML template. This allowed the Fetch API in the user-details.js script to request and receive user details in JSON format, enabling the plugin to display user details asynchronously without reloading the page.
 
 ## Improvements and Future Work
 
