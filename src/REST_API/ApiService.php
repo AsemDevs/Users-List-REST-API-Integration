@@ -6,6 +6,8 @@ class ApiService
 {
     public function init()
     {
+        // TODO: Consider separating the different hooks into different methods for better code organization
+
         add_action('init', [$this, 'add_endpoint']);
         add_action('template_redirect', [$this, 'render_template']);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
@@ -30,6 +32,8 @@ class ApiService
 
     public function fetch_users()
     {
+        // TODO: Add error handling to provide more specific error messages
+        // and handle different types of HTTP errors
         $response = wp_remote_get('https://jsonplaceholder.typicode.com/users');
 
         if (is_wp_error($response)) {
@@ -42,6 +46,8 @@ class ApiService
     }
     private function fetch_user_details($user_id)
     {
+        // TODO: Add error handling to provide more specific error messages
+        // and handle different types of HTTP errors
         $api_url = 'https://jsonplaceholder.typicode.com/users/' . $user_id;
         $response = wp_remote_get($api_url);
 
@@ -58,6 +64,8 @@ class ApiService
     {
         global $wp_query;
 
+        // TODO: Simplify this method by breaking it into smaller methods,
+        // each responsible for rendering a specific template
         if (isset($wp_query->query_vars['user_list_template']) && $wp_query->query_vars['user_list_template'] == 1) {
             // Fetch the user data from the API
             $user_data = $this->fetch_users();
