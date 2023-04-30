@@ -28,11 +28,12 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - The content of three mandatory columns must be a link. ✅
 - These user's details fetching requests must be asynchronous (AJAX). ✅
 - The user details must be shown without reloading the page. ✅
+- Check Inpsyde coding standards and apply them. ✅
 - More optimizations and improvements could be done.
 - Implement caching for API requests.
 - Improve error handling.
 - Improve accessibility and responsiveness for more presentable design.
-- Test Using PHPUnit and Inpsyde coding standards.
+- Automated testing.
 
 ## Implementation
 
@@ -47,6 +48,18 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Updated `user-table-template.php` with links to user-details endpoint
 - Created a `user-details-template.php` to display user information
 - Implemented AJAX for user details fetching without page reload
+- For testing and Inpsyd's coding standards, I have installed PHPUnit and PHP_CodeSniffer using composer and the following commands:
+
+    ```zsh
+  composer require --dev squizlabs/php_codesniffer:^3.6.2 --with-all-dependencies
+  composer require --dev inpsyde/php-coding-standards:^1.0.0 --with-all-dependencies  
+  composer require --dev dealerdirect/phpcodesniffer-composer-installer:^0.7.2 --with-all-dependencies
+  composer require --dev wp-coding-standards/wpcs:^2.3 --with-all-dependencies
+  composer run phpcs -- path
+  composer run phpcbf -- path
+
+    ```
+
 - Plugin Structure
   - users-list-plugin/
     - src/

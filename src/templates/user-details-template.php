@@ -1,3 +1,9 @@
+<?php
+
+declare(strict_types=1);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +13,9 @@
 </head>
 <body>
     <h1>User Details</h1>
-    <p>ID: <?php echo $user_details['id']; ?></p>
-    <p>Name: <?php echo $user_details['name']; ?></p>
-    <p>Username: <?php echo $user_details['username']; ?></p>
-    <p>Email: <?php echo $user_details['email']; ?></p>
-    </body>
+    <p>ID: <?php echo esc_html($userDetails['id']); ?></p>
+    <p>Name: <?php echo esc_html($userDetails['name']); ?></p>
+    <p>Username: <?php echo esc_html($userDetails['username']); ?></p>
+    <p>Email: <?php echo esc_html($userDetails['email']); ?></p>
+</body>
 </html>

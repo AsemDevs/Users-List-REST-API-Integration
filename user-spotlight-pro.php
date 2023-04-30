@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
 Plugin Name: User Spotlight Pro
 Plugin URI: https://github.com/asemdevs/Users-List-REST-API-Integration
@@ -9,7 +12,6 @@ License: MIT
 License URI: https://opensource.org/licenses/MIT
 Text Domain: user-spotlight-pro
 */
-
 
 require __DIR__ . '/vendor/autoload.php';
 
