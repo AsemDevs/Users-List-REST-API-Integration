@@ -7,8 +7,9 @@
 </head>
 <body>
     <h1>User Details</h1>
+    <p>ID: <?php echo $user_details['id']; ?></p>
     <p>Name: <?php echo $user_details['name']; ?></p>
+    <p>Username: <?php echo $user_details['username']; ?></p>
     <p>Email: <?php echo $user_details['email']; ?></p>
-    <p>Phone: <?php echo $user_details['phone']; ?></p>
-</body>
+    </body>
 </html>

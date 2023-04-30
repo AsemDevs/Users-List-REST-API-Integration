@@ -8,7 +8,14 @@ class ApiService
     {
         add_action('init', [$this, 'add_endpoint']);
         add_action('template_redirect', [$this, 'render_template']);
+        add_action('wp_enqueue_scripts', [$this, 'enqueue_scripts']);
     }
+
+    public function enqueue_scripts()
+    {
+        wp_enqueue_script('user-details', plugin_dir_url(__FILE__) . '../assets/js/user-details.js', ['jquery'], '1.0.0', true);
+    }
+
 
     public function add_endpoint()
     {
@@ -18,6 +25,7 @@ class ApiService
         add_rewrite_rule('^user-details/([^/]+)/?$', 'index.php?user_details_template=1&user_id=$matches[1]', 'top');
         add_rewrite_tag('%user_details_template%', '([^&]+)');
         add_rewrite_tag('%user_id%', '([^&]+)');
+        add_rewrite_tag('%json%', '([^&]+)');
     }
 
     public function fetch_users()
@@ -49,21 +57,26 @@ class ApiService
     public function render_template()
     {
         global $wp_query;
-    
+
         if (isset($wp_query->query_vars['user_list_template']) && $wp_query->query_vars['user_list_template'] == 1) {
             // Fetch the user data from the API
             $user_data = $this->fetch_users();
-    
+
             include plugin_dir_path(__FILE__) . '../templates/user-table-template.php';
             exit;
         } elseif (isset($wp_query->query_vars['user_details_template']) && $wp_query->query_vars['user_details_template'] == 1) {
             $user_id = $wp_query->query_vars['user_id'];
             // Fetch user details from the API
             $user_details = $this->fetch_user_details($user_id);
-    
-            // Include the user-details-template.php
-            include plugin_dir_path(__FILE__) . '../templates/user-details-template.php';
-            exit;
+
+            if (isset($wp_query->query_vars['json']) && $wp_query->query_vars['json'] == 1) {
+                wp_send_json($user_details);
+                exit;
+            } else {
+                // Include the user-details-template.php
+                include plugin_dir_path(__FILE__) . '../templates/user-details-template.php';
+                exit;
+            }
         }
     }
 }
