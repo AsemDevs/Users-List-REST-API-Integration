@@ -28,6 +28,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - The content of three mandatory columns must be a link. ✅
 - These user's details fetching requests must be asynchronous (AJAX). ✅
 - The user details must be shown without reloading the page. ✅
+- More optimizations and improvements could be done.
 - Implement caching for API requests.
 - Improve error handling.
 - Improve accessibility and responsiveness for more presentable design.
