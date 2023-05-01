@@ -33,7 +33,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Implement caching for API requests. ✅
 - Improve error handling. ✅
 - Improve accessibility and responsiveness for more presentable design.
-- Automated testing (in progress).
+- Automated testing. ✅
 
 ## Implementation
 
@@ -55,6 +55,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
   composer run phpcs -- path
   composer run phpcbf -- path
   composer require --dev phpunit/phpunit
+  composer require --dev brain/monkey
   composer run-script test
     ```
 
