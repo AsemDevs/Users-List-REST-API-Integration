@@ -10,32 +10,9 @@ declare(strict_types=1);
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . '../assets/styles.css'; ?>">
     <?php wp_head(); ?>
 </head>
-<style>
-    /* Center the table */
-    .user-table {
-        padding-top: 2rem;
-    }
-    .user-table table {
-        margin: 0 auto;
-    }
-
-    /* Add border to the table */
-    .user-table table {
-        border-collapse: collapse;
-        border: 1px solid #ccc;
-    }
-
-    .user-table th,
-    .user-table td {
-        padding: 8px;
-        border: 1px solid #ccc;
-    }
-    .user-table a {
-        text-decoration: none;
-    }
-</style>
 
 <body <?php body_class(); ?>>
     <div class="user-table">

@@ -1,0 +1,33 @@
+.user-table {
+    padding-top: 2rem;
+}
+
+.user-table table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+.user-table th,
+.user-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.user-table a {
+    text-decoration: none;
+}
+
+.user-details h1 {
+    margin: 1rem;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
