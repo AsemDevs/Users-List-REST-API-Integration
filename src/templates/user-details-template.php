@@ -15,10 +15,10 @@ declare(strict_types=1);
 
 <body>
     <h1>User Details</h1>
-    <p>ID: <?php echo esc_html($userDetails['id']); ?></p>
-    <p>Name: <?php echo esc_html($userDetails['name']); ?></p>
-    <p>Username: <?php echo esc_html($userDetails['username']); ?></p>
-    <p>Email: <?php echo esc_html($userDetails['email']); ?></p>
+    <p>ID: <?php echo esc_html($id); ?></p>
+    <p>Name: <?php echo esc_html($name); ?></p>
+    <p>Username: <?php echo esc_html($username); ?></p>
+    <p>Email: <?php echo esc_html($email); ?></p>
 </body>
 
 </html>

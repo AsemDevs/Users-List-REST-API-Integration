@@ -175,13 +175,16 @@ class ApiService
      *
      * @return void
      */
-    public function renderUserDetails()
+    private function renderUserDetails()
     {
         global $wp_query;
         $user_id = $wp_query->query_vars['user_id'];
 
         // Fetch the user details from the API
         $user_details = $this->fetchUserDetails($user_id);
+
+        // Extract user_details array to variables
+        extract($user_details);
 
         // Check if the 'json' query variable is set and render the JSON output
         if (isset($wp_query->query_vars['json']) && $wp_query->query_vars['json'] == 1) {
