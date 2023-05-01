@@ -90,16 +90,23 @@ class ApiService
      */
     public function fetchUsers()
     {
-        $response = wp_remote_get('https://jsonplaceholder.typicode.com/users');
+        $transient_key = 'user_spotlight_pro_users';
+        $users = get_transient($transient_key);
 
-        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-            return ['error' => 'Error fetching users.'];
+        if ($users === false) {
+            $response = wp_remote_get('https://jsonplaceholder.typicode.com/users');
+
+            if (is_wp_error($response)) {
+                return [];
+            }
+
+            $users = json_decode(wp_remote_retrieve_body($response), true);
+            set_transient($transient_key, $users, HOUR_IN_SECONDS);
         }
-
-        $users = json_decode(wp_remote_retrieve_body($response), true);
 
         return $users;
     }
+
 
     /**
      * Fetches user details from the external API.
@@ -109,14 +116,20 @@ class ApiService
      */
     private function _fetchUserDetails($user_id)
     {
-        $api_url = 'https://jsonplaceholder.typicode.com/users/' . $user_id;
-        $response = wp_remote_get($api_url);
+        $transient_key = 'user_spotlight_pro_user_details_' . $user_id;
+        $user_details = get_transient($transient_key);
 
-        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-            return ['error' => 'Error fetching user details.'];
+        if ($user_details === false) {
+            $api_url = 'https://jsonplaceholder.typicode.com/users/' . $user_id;
+            $response = wp_remote_get($api_url);
+
+            if (is_wp_error($response)) {
+                return [];
+            }
+
+            $user_details = json_decode(wp_remote_retrieve_body($response), true);
+            set_transient($transient_key, $user_details, HOUR_IN_SECONDS);
         }
-
-        $user_details = json_decode(wp_remote_retrieve_body($response), true);
 
         return $user_details;
     }

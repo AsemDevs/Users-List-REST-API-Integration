@@ -30,7 +30,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - The user details must be shown without reloading the page. ✅
 - Check Inpsyde coding standards and apply them. ✅
 - More optimizations and improvements could be done. ✅
-- Implement caching for API requests.
+- Implement caching for API requests. ✅
 - Improve error handling. ✅
 - Improve accessibility and responsiveness for more presentable design.
 - Automated testing.

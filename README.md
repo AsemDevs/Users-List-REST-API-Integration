@@ -8,6 +8,7 @@ User Spotlight Pro is a WordPress plugin that fetches and displays a table of us
 - [Installation](#installation)
 - [Usage](#usage)
 - [Development](#development)
+- [Caching](#caching)
 - [License](#license)
 
 ## Requirements
@@ -34,6 +35,17 @@ This plugin follows the Inpsyde PHP coding standards. To check your code against
 
 - `composer run phpcs` to check your code for compliance with the coding standards.
 - `composer run phpcbf` to automatically fix any issues that can be fixed.
+
+## Caching
+
+User Spotlight Pro utilizes WordPress Transients API to cache the data fetched from the external API. This reduces the number of requests made to the API and improves the overall performance of the plugin.
+
+The following cache strategies are implemented:
+
+- User list: Cached for 1 hour
+- User details: Cached for 1 hour (separate cache entry for each user)
+
+You can adjust the cache duration by modifying the `HOUR_IN_SECONDS` constant in the `fetchUsers()` and `_fetchUserDetails()` methods of the `ApiService` class.
 
 ## License
 
