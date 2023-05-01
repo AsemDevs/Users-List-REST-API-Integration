@@ -114,7 +114,7 @@ class ApiService
      * @param  int $user_id The ID of the user to fetch details for.
      * @return array An array of user details.
      */
-    private function _fetchUserDetails($user_id)
+    public function fetchUserDetails($user_id)
     {
         $transient_key = 'user_spotlight_pro_user_details_' . $user_id;
         $user_details = get_transient($transient_key);
@@ -147,12 +147,12 @@ class ApiService
             isset($wp_query->query_vars['user_list_template'])
             && $wp_query->query_vars['user_list_template'] == 1
         ) {
-            $this->_renderUserList();
+            $this->renderUserList();
         } elseif (
             isset($wp_query->query_vars['user_details_template'])
             && $wp_query->query_vars['user_details_template'] == 1
         ) {
-            $this->_renderUserDetails();
+            $this->renderUserDetails();
         }
     }
 
@@ -161,7 +161,7 @@ class ApiService
      *
      * @return void
      */
-    private function _renderUserList()
+    public function renderUserList()
     {
         // Fetch the user data from the API
         $user_data = $this->fetchUsers();
@@ -175,13 +175,13 @@ class ApiService
      *
      * @return void
      */
-    private function _renderUserDetails()
+    public function renderUserDetails()
     {
         global $wp_query;
         $user_id = $wp_query->query_vars['user_id'];
 
         // Fetch the user details from the API
-        $user_details = $this->_fetchUserDetails($user_id);
+        $user_details = $this->fetchUserDetails($user_id);
 
         // Check if the 'json' query variable is set and render the JSON output
         if (isset($wp_query->query_vars['json']) && $wp_query->query_vars['json'] == 1) {

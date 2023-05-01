@@ -21,7 +21,7 @@
     "require-dev": {
         "inpsyde/php-coding-standards": "^1.0",
         "brain/monkey": "^2.6",
-        "phpunit/phpunit": "^10.0",
+        "phpunit/phpunit": "^9.0",
         "mockery/mockery": "^1.5"
     },
     "config": {

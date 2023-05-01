@@ -34,6 +34,9 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Improve error handling. ✅
 - Improve accessibility and responsiveness for more presentable design. ✅
 - Automated testing. ✅
+- Documentation. ✅
+- Add Bootstrap for better design.
+- Better Design for the table and the user details.
 
 ## Implementation
 
