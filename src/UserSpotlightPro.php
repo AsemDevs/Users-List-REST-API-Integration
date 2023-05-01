@@ -13,5 +13,4 @@ class UserSpotlightPro
         $apiService = new ApiService();
         $apiService->init();
     }
-    
 }

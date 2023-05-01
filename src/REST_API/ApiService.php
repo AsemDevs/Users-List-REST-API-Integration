@@ -23,8 +23,6 @@ class ApiService
      */
     public function init()
     {
-        // TODO: Consider separating the different hooks into different methods for better code organization
-
         add_action('init', [$this, 'addEndpoint']);
         add_action('template_redirect', [$this, 'renderTemplate']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
@@ -53,9 +51,28 @@ class ApiService
      */
     public function addEndpoint()
     {
+        $this->addUserListEndpoint();
+        $this->addUserDetailsEndpoint();
+    }
+
+    /**
+     * Adds user list endpoint and rewrite tag.
+     *
+     * @return void
+     */
+    private function addUserListEndpoint()
+    {
         add_rewrite_rule('^user-list/?$', 'index.php?user_list_template=1', 'top');
         add_rewrite_tag('%user_list_template%', '([^&]+)');
+    }
 
+    /**
+     * Adds user details endpoint and rewrite tags.
+     *
+     * @return void
+     */
+    private function addUserDetailsEndpoint()
+    {
         add_rewrite_rule(
             '^user-details/([^/]+)/?$',
             'index.php?user_details_template=1&user_id=$matches[1]',
@@ -73,12 +90,10 @@ class ApiService
      */
     public function fetchUsers()
     {
-        // TODO: Add error handling to provide more specific error messages
-        // and handle different types of HTTP errors
         $response = wp_remote_get('https://jsonplaceholder.typicode.com/users');
 
-        if (is_wp_error($response)) {
-            return []; // To return an empty array in case of an error
+        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+            return ['error' => 'Error fetching users.'];
         }
 
         $users = json_decode(wp_remote_retrieve_body($response), true);
@@ -94,13 +109,11 @@ class ApiService
      */
     private function _fetchUserDetails($user_id)
     {
-        // TODO: Add error handling to provide more specific error messages
-        // and handle different types of HTTP errors
         $api_url = 'https://jsonplaceholder.typicode.com/users/' . $user_id;
         $response = wp_remote_get($api_url);
 
-        if (is_wp_error($response)) {
-            return [];
+        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
+            return ['error' => 'Error fetching user details.'];
         }
 
         $user_details = json_decode(wp_remote_retrieve_body($response), true);

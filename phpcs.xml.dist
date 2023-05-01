@@ -2,7 +2,6 @@
 <ruleset name="UserSpotlightProCodingStandard">
     <description>User Spotlight Pro coding standard.</description>
 
-    <file>./</file>
     <file>./src</file>
     <file>./tests</file>
 
@@ -14,15 +13,6 @@
     
     <rule ref="Inpsyde">
         <exclude name="WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize" />
-    </rule>
-    
-    <rule ref="Inpsyde.CodeQuality.Psr4">
-        <properties>
-            <property
-                name="psr4"
-                type="array"
-                value="UserSpotlightPro\REST_API=>src,UserSpotlightPro\Tests=>tests"/>
-        </properties>
     </rule>
     
     <rule ref="Inpsyde.CodeQuality.ElementNameMinimalLength">
