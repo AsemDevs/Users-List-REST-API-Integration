@@ -33,7 +33,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Implement caching for API requests. ✅
 - Improve error handling. ✅
 - Improve accessibility and responsiveness for more presentable design.
-- Automated testing.
+- Automated testing (in progress).
 
 ## Implementation
 
@@ -48,13 +48,14 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Updated `user-table-template.php` with links to user-details endpoint
 - Created a `user-details-template.php` to display user information
 - Implemented AJAX for user details fetching without page reload
-- For testing and Inpsyd's coding standards, I have installed PHPUnit and PHP_CodeSniffer using composer and the following commands:
+- For testing and Inpsyde's coding standards, I have installed PHPUnit and Inpsyde code standard using composer and the following commands:
 
     ```zsh
   composer require inpsyde/php-coding-standards --dev
   composer run phpcs -- path
   composer run phpcbf -- path
-
+  composer require --dev phpunit/phpunit
+  composer run-script test
     ```
 
 - Plugin Structure
@@ -82,5 +83,6 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 
 - Cache
 - Error handling
-- Unit testing
+- Unit testing (in progress)
 - Documentation
+- Improve accessibility and responsiveness for more presentable design.

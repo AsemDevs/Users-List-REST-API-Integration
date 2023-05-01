@@ -19,7 +19,8 @@
         "php": ">=8.0"
     },
     "require-dev": {
-        "inpsyde/php-coding-standards": "^1.0"
+        "inpsyde/php-coding-standards": "^1.0",
+        "phpunit/phpunit": "^10.1"
     },
     "config": {
         "allow-plugins": {
@@ -28,6 +29,7 @@
     },
     "scripts": {
         "phpcs": "phpcs",
-        "phpcbf": "phpcbf"
+        "phpcbf": "phpcbf",
+        "test": "phpunit"
     }
 }
