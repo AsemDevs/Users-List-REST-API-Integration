@@ -32,7 +32,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - More optimizations and improvements could be done. ✅
 - Implement caching for API requests. ✅
 - Improve error handling. ✅
-- Improve accessibility and responsiveness for more presentable design.
+- Improve accessibility and responsiveness for more presentable design. ✅
 - Automated testing. ✅
 
 ## Implementation
