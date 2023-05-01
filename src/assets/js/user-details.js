@@ -11,21 +11,28 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   
   async function displayUserDetails(userId) {
+    const errorContainer = document.getElementById("error-container");
+    errorContainer.innerHTML = ""; // Clear any previous error messages
+  
     try {
       const userDetailsUrl = `${window.location.origin}/user-details/${userId}?json=1`;
       const response = await fetch(userDetailsUrl);
   
       if (!response.ok) {
-        // TODO: Improve error handling by providing more specific error messages
-        // and handling different types of HTTP errors.
+        let errorMessage = "Error fetching user details";
+        
+        // Provide more specific error messages based on the status code
+        if (response.status === 404) {
+          errorMessage = "User not found";
+        } else if (response.status === 500) {
+          errorMessage = "Internal server error";
+        }
   
-        throw new Error("Error fetching user details");
+        throw new Error(errorMessage);
       }
   
       const userDetails = await response.json();
-      const userDetailsContainer = document.getElementById(
-        "user-details-container"
-      );
+      const userDetailsContainer = document.getElementById("user-details-container");
   
       const userDetailsHTML = `
             <div class="user-details">
@@ -42,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
       userDetailsContainer.innerHTML = userDetailsHTML;
     } catch (error) {
       console.error("Error:", error);
+      errorContainer.innerHTML = error.message; // Display the error message to the user
     }
   }
   

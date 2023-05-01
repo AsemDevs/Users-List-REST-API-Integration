@@ -10,7 +10,7 @@ declare(strict_types=1);
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . '../assets/styles.css'; ?>">
+    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . '../assets/css/styles.css'; ?>">
     <?php wp_head(); ?>
 </head>
 
@@ -39,6 +39,7 @@ declare(strict_types=1);
     <div id="user-details-container" style="display: flex; justify-content: center;">
         <!-- User details will be displayed here -->
     </div>
+    <div id="error-container" class="error-message"></div>
 
     <?php wp_footer(); ?>
 </body>

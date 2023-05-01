@@ -70,8 +70,14 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
       - assets/
         - js/
           - user-details.js
+        - css/
+          - styles.css
       - UserSpotlightPro.php
     - composer.json
+    - tests/
+      - ApiServiceTest.php
+      - bootstrap.php
+    - README.md
     - user-spotlight-pro.php
 
 ## Challenges and Solutions
