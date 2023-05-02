@@ -1,3 +1,9 @@
+<?php
+
+declare(strict_types=1);
+
+?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -28,7 +34,7 @@
             </tbody>
         </table>
     </div>
-    <div id="user-details-container" class="container" style="display: flex; justify-content: center;">
+    <div id="user-details-container" class="container">
         <!-- User details will be displayed here -->
     </div>
     <div id="error-container" class="error-message container mt-3"></div>
