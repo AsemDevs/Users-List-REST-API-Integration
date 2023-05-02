@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="UserSpotlightProCodingStandard">
-
-    <description>My Project coding standard.</description>
+    <description>User Spotlight Pro coding standard.</description>
 
     <file>./src</file>
     <file>./tests</file>
@@ -16,19 +15,25 @@
         <exclude name="WordPress.PHP.DiscouragedPHPFunctions.serialize_serialize" />
     </rule>
     
+    <rule ref="Inpsyde.CodeQuality.ElementNameMinimalLength">
+        <properties>
+            <property name="additionalAllowedNames" type="array" value="c,me,my" />
+        </properties>
+    </rule>
+
+    <!-- Include the Psr4 rule with the correct namespace and paths -->
     <rule ref="Inpsyde.CodeQuality.Psr4">
         <properties>
             <property
                 name="psr4"
                 type="array"
-                value="Inpsyde\MyProject=>src,Inpsyde\MyProject\Tests=>tests/src|tests/unit"/>
+                value="UserSpotlightPro\REST_API=>src/REST_API,UserSpotlightPro\Tests=>tests"/>
         </properties>
     </rule>
-    
-    <rule ref="Inpsyde.CodeQuality.ElementNameMinimalLength">
-        <properties>
-            <property name="additionalAllowedNames" type="array" value="c,me,my" />
-        </properties>
+
+    <!-- Exclude PrefixAllGlobalsSniff -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <exclude name="WordPress.NamingConventions.PrefixAllGlobals.Sniff" />
     </rule>
 
 </ruleset>
