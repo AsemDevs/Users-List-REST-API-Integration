@@ -88,6 +88,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - A 404 error was encountered when trying to access the custom endpoint. This was **resolved** by adjusting the rewrite rule and tag registration, as well as flushing the rewrite rules by saving permalink settings in the WordPress admin dashboard.
 - Challenge: Integrating Fetch API with the custom user-details endpoint
 **Solution:** Initially, the user details were fetched using the custom user-details endpoint, and it was required to return JSON data instead of HTML. To achieve this, a query parameter `?json=1` was appended to the user-details URL, and the corresponding PHP code was updated to check for this query parameter. If the parameter was present and set to '1', the PHP code would return JSON data instead of rendering the HTML template. This allowed the Fetch API in the user-details.js script to request and receive user details in JSON format, enabling the plugin to display user details asynchronously without reloading the page.
+- Challenge: PHP Fatal error with trim() function is deprecated in wp-coding-standards/wpcs when using PHP 8.0 or later
+**Solution:** The issue is caused by a bug in the wp-coding-standards/wpcs package, which is a dependency of the inpsyde/php-coding-standards package. There are two possible solutions: downgrade PHP to version 7.4, which is compatible with the inpsyde/php-coding-standards package, or wait for a new release of wp-coding-standards/wpcs that includes the fix for the trim() function bug.
 
 ## Improvements and Future Work
 

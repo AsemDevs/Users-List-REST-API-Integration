@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
       if (!response.ok) {
         let errorMessage = "Error fetching user details";
-        
+  
         // Provide more specific error messages based on the status code
         if (response.status === 404) {
           errorMessage = "User not found";
@@ -32,18 +32,24 @@ document.addEventListener("DOMContentLoaded", function () {
       }
   
       const userDetails = await response.json();
-      const userDetailsContainer = document.getElementById("user-details-container");
+      const userDetailsContainer = document.getElementById(
+        "user-details-container"
+      );
   
       const userDetailsHTML = `
-            <div class="user-details">
-                <h1>User Details</h1>
-                <div class="details-container card">
-                  <p>ID: ${userDetails.id}</p>
-                  <p>Name: ${userDetails.name}</p>
-                  <p>Username: ${userDetails.username}</p>
-                  <p>Email: ${userDetails.email}</p>
-              </div>
+        <div class="user-details mt-5">
+            <h1 class="text-center">User Details</h1>
+            <div class="details-container card">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>ID:</strong> ${userDetails.id}</li>
+                        <li class="list-group-item"><strong>Name:</strong> ${userDetails.name}</li>
+                        <li class="list-group-item"><strong>Username:</strong> ${userDetails.username}</li>
+                        <li class="list-group-item"><strong>Email:</strong> ${userDetails.email}</li>
+                    </ul>
+                </div>
             </div>
+        </div>
           `;
   
       userDetailsContainer.innerHTML = userDetailsHTML;

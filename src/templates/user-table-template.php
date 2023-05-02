@@ -1,30 +1,20 @@
-<?php
-
-declare(strict_types=1);
-
-?>
-
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?php
-    echo esc_url(plugin_dir_url(__FILE__) . '../assets/css/styles.css');
-    ?>">
     <?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
-    <div class="user-table">
-
-        <table>
+    <div class="user-table container mt-5">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Username</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Username</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,10 +28,10 @@ declare(strict_types=1);
             </tbody>
         </table>
     </div>
-    <div id="user-details-container" style="display: flex; justify-content: center;">
+    <div id="user-details-container" class="container" style="display: flex; justify-content: center;">
         <!-- User details will be displayed here -->
     </div>
-    <div id="error-container" class="error-message"></div>
+    <div id="error-container" class="error-message container mt-3"></div>
 
     <?php wp_footer(); ?>
 </body>
