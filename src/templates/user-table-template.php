@@ -10,7 +10,9 @@ declare(strict_types=1);
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="<?php echo plugin_dir_url(__FILE__) . '../assets/css/styles.css'; ?>">
+    <link rel="stylesheet" href="<?php
+    echo esc_url(plugin_dir_url(__FILE__) . '../assets/css/styles.css');
+    ?>">
     <?php wp_head(); ?>
 </head>
 

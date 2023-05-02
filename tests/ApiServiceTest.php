@@ -1,6 +1,8 @@
 <?php
 
-define('HOUR_IN_SECONDS', 3600);
+declare(strict_types=1);
+
+const HOUR_IN_SECONDS = 3600;
 
 use UserSpotlightPro\REST_API\ApiService;
 use PHPUnit\Framework\TestCase;
