@@ -53,6 +53,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Updated `user-table-template.php` with links to user-details endpoint
 - Created a `user-details-template.php` to display user information
 - Implemented AJAX for user details fetching without page reload
+- Fixed Trailing slash issue in the custom endpoint for user-details to prevent duplicated requests, noticed in Network tab in Chrome DevTools.
 - For testing and Inpsyde's coding standards, I have installed PHPUnit and Inpsyde code standard using composer and the following commands:
 
     ```zsh
