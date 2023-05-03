@@ -38,6 +38,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Better Design for the table and the user details. ✅
 - Add new pagination feature in case the list of users excceed a specific number to handle it into several pages. ✅
 - Refactor the `ApiService` class into more classes to be more readable and maintainable. ✅
+- Make the endpoint customizable via options.
+- Make the Number of users per page customizable via options and Changeable in frontend.
 - Documentation. ✅
 
 ## Implementation
