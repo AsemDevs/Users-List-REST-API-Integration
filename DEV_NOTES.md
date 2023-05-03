@@ -37,7 +37,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Add Bootstrap for better design. ✅
 - Better Design for the table and the user details. ✅
 - Add new pagination feature in case the list of users excceed a specific number to handle it into several pages. ✅
-- Refactor the `ApiService` class into more classes to be more readable and maintainable.
+- Refactor the `ApiService` class into more classes to be more readable and maintainable. ✅
 - Documentation. ✅
 
 ## Implementation

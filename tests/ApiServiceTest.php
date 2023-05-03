@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 const HOUR_IN_SECONDS = 3600;
 
-use UserSpotlightPro\REST_API\ApiService;
+use UserSpotlightPro\REST_API\UserApi;
 use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
@@ -27,7 +27,7 @@ class ApiServiceTest extends TestCase
 
     public function testFetchUserDetails()
     {
-        $apiService = new ApiService();
+        $userApi = new UserApi();
         $userId = 1;
 
         // Mock the get_transient() function
@@ -55,7 +55,7 @@ class ApiServiceTest extends TestCase
 
         Functions\when('set_transient')->justReturn(true);
 
-        $userDetails = $apiService->fetchUserDetails($userId);
+        $userDetails = $userApi->fetchUserDetails($userId);
 
         $this->assertIsArray($userDetails);
         $this->assertArrayHasKey('id', $userDetails);
