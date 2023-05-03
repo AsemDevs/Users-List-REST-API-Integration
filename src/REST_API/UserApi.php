@@ -17,11 +17,7 @@ class UserApi
      *
      * @return void
      */
-  /**
-     * Adds custom rewrite rules and tags for the endpoints.
-     *
-     * @return void
-     */
+
     public function addEndpoint()
     {
         $this->addUserListEndpoint();
@@ -45,8 +41,12 @@ class UserApi
      *
      * @return void
      */
+
     private function addUserDetailsEndpoint()
     {
+        add_rewrite_rule('^user-details/?$', 'index.php?user_details_template_file=1', 'top');
+        add_rewrite_tag('%user_details_template_file%', '([^&]+)');
+        
         add_rewrite_rule(
             '^user-details/([^/]+)/?$',
             'index.php?user_details_template=1&user_id=$matches[1]',
@@ -56,12 +56,13 @@ class UserApi
         add_rewrite_tag('%user_id%', '([^&]+)');
         add_rewrite_tag('%json%', '([^&]+)');
     }
-
+    
     /**
      * Fetches users from the external API.
      *
      * @return array An array of user data.
      */
+
     public function fetchUsers()
     {
         $transient_key = 'user_spotlight_pro_users';
@@ -81,13 +82,13 @@ class UserApi
         return $users;
     }
 
-
     /**
      * Fetches user details from the external API.
      *
      * @param  int $user_id The ID of the user to fetch details for.
      * @return array An array of user details.
      */
+
     public function fetchUserDetails($user_id)
     {
         $transient_key = 'user_spotlight_pro_user_details_' . $user_id;
@@ -115,7 +116,7 @@ class UserApi
     public function renderTemplate()
     {
         global $wp_query;
-
+    
         if (
             isset($wp_query->query_vars['user_list_template'])
             && $wp_query->query_vars['user_list_template'] == 1
@@ -126,8 +127,15 @@ class UserApi
             && $wp_query->query_vars['user_details_template'] == 1
         ) {
             $this->renderUserDetails();
+        } elseif (
+            isset($wp_query->query_vars['user_details_template_file'])
+            && $wp_query->query_vars['user_details_template_file'] == 1
+        ) {
+            include plugin_dir_path(__FILE__) . '../templates/user-details-template.php';
+            exit;
         }
     }
+    
 
 
     /**

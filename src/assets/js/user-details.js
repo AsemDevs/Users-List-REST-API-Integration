@@ -1,60 +1,68 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const userLinks = document.querySelectorAll("tbody tr[data-user-id] a");
+jQuery(document).ready(function ($) {
+  let userDetailsTemplate = "";
 
-  userLinks.forEach((link) => {
-    link.addEventListener("click", async function (event) {
-      event.preventDefault();
-      const userId = link.parentNode.parentNode.dataset.userId;
-      await displayUserDetails(userId);
-    });
+  $("tbody").on("click", "tr[data-user-id] a", function (event) {
+    event.preventDefault();
+    const link = event.target;
+    const userId = link.parentNode.parentNode.dataset.userId;
+    displayUserDetails(userId);
   });
-});
 
-async function displayUserDetails(userId) {
-  const errorContainer = document.getElementById("error-container");
-  errorContainer.innerHTML = ""; // Clear any previous error messages
+  function displayUserDetails(userId) {
+    const errorContainer = $("#error-container");
+    errorContainer.html(""); // Clear any previous error messages
 
-  try {
-    const userDetailsUrl = `${window.location.origin}/user-details/${userId}/?json=1`;
-    const response = await fetch(userDetailsUrl);
-
-    if (!response.ok) {
-      let errorMessage = "Error fetching user details";
-
-      // Provide more specific error messages based on the status code
-      if (response.status === 404) {
-        errorMessage = "User not found";
-      } else if (response.status === 500) {
-        errorMessage = "Internal server error";
-      }
-
-      throw new Error(errorMessage);
+    if (!userDetailsTemplate) {
+      const userDetailsTemplateUrl = `${window.location.origin}/user-details`;
+      console.log(userDetailsTemplateUrl);
+      // Fetch the user details template using AJAX
+      $.ajax({
+        url: userDetailsTemplateUrl,
+        dataType: "html",
+        success: function (templateContent) {
+          userDetailsTemplate = templateContent;
+          getUserDetails(userId);
+        },
+        error: function () {
+          console.error("Error fetching user details template");
+          errorContainer.html("Error fetching user details template");
+        },
+      });
+    } else {
+      getUserDetails(userId);
     }
-
-    const userDetails = await response.json();
-    const userDetailsContainer = document.getElementById(
-      "user-details-container"
-    );
-
-    const userDetailsHTML = `
-        <div class="user-details mt-5">
-            <h1 class="text-center">User Details</h1>
-            <div class="details-container card">
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>ID:</strong> ${userDetails.id}</li>
-                        <li class="list-group-item"><strong>Name:</strong> ${userDetails.name}</li>
-                        <li class="list-group-item"><strong>Username:</strong> ${userDetails.username}</li>
-                        <li class="list-group-item"><strong>Email:</strong> ${userDetails.email}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-          `;
-
-    userDetailsContainer.innerHTML = userDetailsHTML;
-  } catch (error) {
-    console.error("Error:", error);
-    errorContainer.innerHTML = error.message; // Display the error message to the user
   }
-}
+
+  function getUserDetails(userId) {
+    const userDetailsUrl = `${window.location.origin}/user-details/${userId}/?json=1`;
+    $.ajax({
+      url: userDetailsUrl,
+      dataType: "json",
+      success: function (userDetails) {
+        const userDetailsContainer = $("#user-details-container");
+
+        // Use the fetched user details template
+        userDetailsContainer.html(userDetailsTemplate);
+
+        // Update the user details in the template
+        $(".user-details #user-id").text(userDetails.id);
+        $(".user-details #user-name").text(userDetails.name);
+        $(".user-details #user-username").text(userDetails.username);
+        $(".user-details #user-email").text(userDetails.email);
+      },
+      error: function (jqXHR) {
+        let errorMessage = "Error fetching user details";
+
+        // Provide more specific error messages based on the status code
+        if (jqXHR.status === 404) {
+          errorMessage = "User not found";
+        } else if (jqXHR.status === 500) {
+          errorMessage = "Internal server error";
+        }
+
+        console.error("Error:", errorMessage);
+        errorContainer.html(errorMessage); // Display the error message to the user
+      },
+    });
+  }
+});
