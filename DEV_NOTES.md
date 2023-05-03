@@ -36,7 +36,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Automated testing. ✅
 - Add Bootstrap for better design. ✅
 - Better Design for the table and the user details. ✅
-- Add new pagination feature in case the list of users excceed a specific number to handle it into several pages.
+- Add new pagination feature in case the list of users excceed a specific number to handle it into several pages. ✅
 - Refactor the `ApiService` class into more classes to be more readable and maintainable.
 - Documentation. ✅
 

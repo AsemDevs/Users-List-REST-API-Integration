@@ -15,7 +15,8 @@ declare(strict_types=1);
 
 <body <?php body_class(); ?>>
     <div class="user-table container mt-5">
-        <table class="table table-striped table-hover">
+        <table id="user-table" class="table table-striped table-hover">
+            <caption class="text-center">Users List</caption>
             <thead>
                 <tr>
                     <th scope="col">ID</th>
@@ -33,6 +34,7 @@ declare(strict_types=1);
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <div id="pagination-container"></div>
     </div>
     <div id="user-details-container" class="container">
         <!-- User details will be displayed here -->

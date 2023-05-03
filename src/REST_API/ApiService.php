@@ -51,6 +51,13 @@ class ApiService
             '5.0.2',
             true
         );
+        wp_enqueue_script(
+            'pagination',
+            $plugin_url . 'assets/js/pagination.js',
+            ['jquery'],
+            '1.0.0',
+            true
+        );
     }
 
     /**
@@ -84,6 +91,7 @@ class ApiService
     {
         $this->addUserListEndpoint();
         $this->addUserDetailsEndpoint();
+        $this->addUserListJsonEndpoint();
     }
 
     /**
@@ -97,6 +105,12 @@ class ApiService
         add_rewrite_tag('%user_list_template%', '([^&]+)');
     }
 
+    private function addUserListJsonEndpoint()
+    {
+        add_rewrite_rule('^user-list-api/?$', 'index.php?user_list_json_template=1', 'top');
+        add_rewrite_tag('%user_list_json_template%', '([^&]+)');
+    }
+    
     /**
      * Adds user details endpoint and rewrite tags.
      *
@@ -164,7 +178,15 @@ class ApiService
 
         return $user_details;
     }
+    public function renderUserListJson()
+    {
+        // Fetch the user data from the API
+        $user_data = $this->fetchUsers();
 
+        header('Content-Type: application/json');
+        echo json_encode($user_data);
+        exit;
+    }
     /**
      * Renders the appropriate template based on the query variables.
      *
@@ -184,8 +206,14 @@ class ApiService
             && $wp_query->query_vars['user_details_template'] == 1
         ) {
             $this->renderUserDetails();
+        } elseif (
+            isset($wp_query->query_vars['user_list_json_template'])
+            && $wp_query->query_vars['user_list_json_template'] == 1
+        ) {
+            $this->renderUserListJson();
         }
     }
+
 
     /**
      * Renders the user list template.
