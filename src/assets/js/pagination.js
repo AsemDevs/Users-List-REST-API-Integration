@@ -1,16 +1,18 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const apiResponse = await fetch(`${window.location.origin}${UserSpotlightPro.customEndpoint}?json=1`);
+  const apiResponse = await fetch(
+    `${window.location.origin}${UserSpotlightPro.customEndpoint}?json=1`
+  );
   const allUsersData = await apiResponse.json();
   const allUsers = Array.from(document.querySelectorAll("tbody tr"));
-  const itemsPerPage = 5;
-  const totalPages = Math.ceil(allUsersData.length / itemsPerPage);
+  const usersPerPage = parseInt(UserSpotlightPro.usersPerPage);
+  const totalPages = Math.ceil(allUsersData.length / usersPerPage);
 
   renderUsers(1, allUsers);
   setupPagination(totalPages);
 
   function renderUsers(page, allUsers) {
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
+    const start = (page - 1) * usersPerPage;
+    const end = start + usersPerPage;
 
     allUsers.forEach((user, index) => {
       if (index >= start && index < end) {

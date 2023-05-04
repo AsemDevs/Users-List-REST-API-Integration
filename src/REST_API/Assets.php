@@ -41,11 +41,16 @@ class Assets
             '1.0.0',
             true
         );
-    
+
         $custom_endpoint = get_option('user_spotlight_pro_endpoint', '/user-list') ?: '/user-list';
-        wp_localize_script('pagination', 'UserSpotlightPro', ['customEndpoint' => $custom_endpoint]);
+        $users_per_page = get_option('user_spotlight_pro_items_per_page', '5') ?: '5';
+
+        wp_localize_script('pagination', 'UserSpotlightPro', [
+            'customEndpoint' => $custom_endpoint,
+            'usersPerPage' => $users_per_page,
+        ]);
     }
-    
+
 
     /**
      * Enqueues the required styles.
