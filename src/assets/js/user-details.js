@@ -16,8 +16,7 @@ jQuery(document).ready(function ($) {
 
   $("tbody").on("click", "tr[data-user-id] a", function (event) {
     event.preventDefault();
-    const link = event.target;
-    const userId = link.parentNode.parentNode.dataset.userId;
+    const userId = $(this).data("user-id");
     displayUserDetails(userId);
   });
 
@@ -25,39 +24,33 @@ jQuery(document).ready(function ($) {
     const errorContainer = $("#error-container");
     errorContainer.html(""); // Clear any previous error messages
 
-    getUserDetails(userId);
+    showUserDetails(userId);
   }
 
-  function getUserDetails(userId) {
-    const userDetailsUrl = `${window.location.origin}/user-details/${userId}/?json=1`;
-    $.ajax({
-      url: userDetailsUrl,
-      dataType: "json",
-      success: function (userDetails) {
-        const userDetailsContainer = $("#user-details-container");
+  async function showUserDetails(userId) {
+    const data = new FormData();
+    data.append("action", "get_user_details");
+    data.append("user_id", userId);
 
-        // Use the static user details template
-        userDetailsContainer.html(userDetailsTemplate);
-
-        // Update the user details in the template
-        $("#user-id").text(userDetails.id);
-        $("#user-name").text(userDetails.name);
-        $("#user-username").text(userDetails.username);
-        $("#user-email").text(userDetails.email);
-      },
-      error: function (jqXHR) {
-        let errorMessage = "Error fetching user details";
-
-        // Provide more specific error messages based on the status code
-        if (jqXHR.status === 404) {
-          errorMessage = "User not found";
-        } else if (jqXHR.status === 500) {
-          errorMessage = "Internal server error";
-        }
-
-        console.error("Error:", errorMessage);
-        errorContainer.html(errorMessage); // Display the error message to the user
-      },
+    const response = await fetch(ajax_object.ajaxurl, {
+      method: "POST",
+      body: data,
     });
+    const result = await response.json();
+
+    if (result.success) {
+      const userDetails = result.data;
+      const userDetailsContainer = $("#user-details-container");
+
+      userDetailsContainer.html(userDetailsTemplate);
+
+      $("#user-id").text(userDetails.id);
+      $("#user-name").text(userDetails.name);
+      $("#user-username").text(userDetails.username);
+      $("#user-email").text(userDetails.email);
+    } else {
+      // Handle error, for example, show an alert with the error message.
+      alert(result.data);
+    }
   }
 });

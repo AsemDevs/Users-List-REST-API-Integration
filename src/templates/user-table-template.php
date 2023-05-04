@@ -27,14 +27,15 @@ declare(strict_types=1);
             <tbody>
                 <?php foreach ($user_data as $user) : ?>
                     <tr data-user-id="<?php echo $user['id']; ?>">
-                        <td><a href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['id']; ?></a></td>
-                        <td><a href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['name']; ?></a></td>
-                        <td><a href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['username']; ?></a></td>
+                        <td><a data-user-id="<?php echo $user['id']; ?>" href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['id']; ?></a></td>
+                        <td><a data-user-id="<?php echo $user['id']; ?>" href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['name']; ?></a></td>
+                        <td><a data-user-id="<?php echo $user['id']; ?>" href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['username']; ?></a></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
         <div id="pagination-container"></div>
+
     </div>
     <div id="user-details-container" class="container">
         <!-- User details will be displayed here -->

@@ -42,7 +42,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Make the pagination depend on the custom endpoint. ✅
 - Use the defual endpoint after reactivating the plugin. ✅
 - *TODO:* Flush rewrite rules to happen automatically when the endpoint is changed.
-- Make the Number of users per page customizable via options and Changeable in frontend.
+- Make the Number of users per page customizable via options. ✅
 - Documentation. ✅
 
 ## Implementation
@@ -64,6 +64,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - I have swtiched to display the data from the HTML in js variable to solve a warning in debug.log so i keep the user-details-template.php dedicated for its custom endpoint.
 - The endpoint can be customized via settings > User Spotlight Pro.
 - The Endpoint is now customizable via options but there should be more updates for the pagination as it depends on the custom endpoint.
+- Process the AJAX request in the backend, fetch user details from the external API, it's better for caching and security.
 - For testing and Inpsyde's coding standards, I have installed PHPUnit and Inpsyde code standard using composer and the following commands:
 
     ```zsh
@@ -80,12 +81,15 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
     - src/
       - REST_API/
         - ApiService.php
+        - Assets.php
+        - UserApi.php
       - templates/
         - user-table-template.php
         - user-details-template.php
       - assets/
         - js/
           - user-details.js
+          - pagination.js
         - css/
           - styles.css
       - UserSpotlightPro.php

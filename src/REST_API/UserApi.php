@@ -10,6 +10,8 @@ class UserApi
     {
         add_action('init', [$this, 'addEndpoint']);
         add_action('template_redirect', [$this, 'renderTemplate']);
+        add_action('wp_ajax_get_user_details', [$this, 'handle_ajax_request']);
+        add_action('wp_ajax_nopriv_get_user_details', [$this, 'handle_ajax_request']);
     }
 
     /**
@@ -140,6 +142,21 @@ class UserApi
         }
     }
 
+    public function handle_ajax_request()
+    {
+        if (isset($_POST['user_id']) && !empty($_POST['user_id'])) {
+            $user_id = intval($_POST['user_id']);
+            $user_details = $this->fetchUserDetails($user_id);
+
+            if (!empty($user_details)) {
+                wp_send_json_success($user_details);
+            } else {
+                wp_send_json_error(['message' => 'User details not found.']);
+            }
+        } else {
+            wp_send_json_error(['message' => 'Invalid user ID.']);
+        }
+    }
 
 
     /**

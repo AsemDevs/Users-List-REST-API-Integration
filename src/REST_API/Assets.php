@@ -49,6 +49,7 @@ class Assets
             'customEndpoint' => $custom_endpoint,
             'usersPerPage' => $users_per_page,
         ]);
+        wp_localize_script('user-details', 'ajax_object', ['ajaxurl' => admin_url('admin-ajax.php')]);
     }
 
 
