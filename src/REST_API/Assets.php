@@ -41,7 +41,11 @@ class Assets
             '1.0.0',
             true
         );
+    
+        $custom_endpoint = get_option('user_spotlight_pro_endpoint', '/user-list') ?: '/user-list';
+        wp_localize_script('pagination', 'UserSpotlightPro', ['customEndpoint' => $custom_endpoint]);
     }
+    
 
     /**
      * Enqueues the required styles.

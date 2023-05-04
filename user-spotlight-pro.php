@@ -19,3 +19,9 @@ use UserSpotlightPro\UserSpotlightPro;
 
 $user_spotlight_pro = new UserSpotlightPro();
 $user_spotlight_pro->init();
+
+register_deactivation_hook(__FILE__, 'reset_custom_endpoint_on_deactivation');
+
+function reset_custom_endpoint_on_deactivation() {
+    delete_option('user_spotlight_pro_endpoint');
+}

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const apiResponse = await fetch(`${window.location.origin}/user-list-api`);
+  const apiResponse = await fetch(`${window.location.origin}${UserSpotlightPro.customEndpoint}?json=1`);
   const allUsersData = await apiResponse.json();
   const allUsers = Array.from(document.querySelectorAll("tbody tr"));
   const itemsPerPage = 5;

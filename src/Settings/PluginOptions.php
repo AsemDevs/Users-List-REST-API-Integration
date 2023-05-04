@@ -38,7 +38,7 @@ class PluginOptions
                 settings_fields('user_spotlight_pro');
                 do_settings_sections('user_spotlight_pro');
 
-                $endpoint = get_option('user_spotlight_pro_endpoint', '/user-list');
+                $endpoint = get_option('user_spotlight_pro_endpoint', '/user-list') ?: '/user-list';
                 ?>
                 <table class="form-table">
                     <tr valign="top">

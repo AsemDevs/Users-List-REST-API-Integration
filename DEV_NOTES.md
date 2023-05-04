@@ -39,6 +39,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Add new pagination feature in case the list of users excceed a specific number to handle it into several pages. ✅
 - Refactor the `ApiService` class into more classes to be more readable and maintainable. ✅
 - Make the endpoint customizable via options. ✅
+- Make the pagination depend on the custom endpoint. ✅
+- Use the defual endpoint after reactivating the plugin. ✅
 - *TODO:* Flush rewrite rules to happen automatically when the endpoint is changed.
 - Make the Number of users per page customizable via options and Changeable in frontend.
 - Documentation. ✅
