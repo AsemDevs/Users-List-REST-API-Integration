@@ -38,7 +38,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Better Design for the table and the user details. ✅
 - Add new pagination feature in case the list of users excceed a specific number to handle it into several pages. ✅
 - Refactor the `ApiService` class into more classes to be more readable and maintainable. ✅
-- Make the endpoint customizable via options.
+- Make the endpoint customizable via options. ✅
+- *TODO:* Flush rewrite rules to happen automatically when the endpoint is changed.
 - Make the Number of users per page customizable via options and Changeable in frontend.
 - Documentation. ✅
 
@@ -59,6 +60,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - I have implemented the Ajax request using Ajax Jquery and not the Fetch API.
 - I prefered to use Ajax Jquery because it is more compatible with older browsers.
 - I have swtiched to display the data from the HTML in js variable to solve a warning in debug.log so i keep the user-details-template.php dedicated for its custom endpoint.
+- The endpoint can be customized via settings > User Spotlight Pro.
+- The Endpoint is now customizable via options but there should be more updates for the pagination as it depends on the custom endpoint.
 - For testing and Inpsyde's coding standards, I have installed PHPUnit and Inpsyde code standard using composer and the following commands:
 
     ```zsh

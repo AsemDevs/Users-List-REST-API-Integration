@@ -31,7 +31,11 @@ class UserApi
      */
     private function addUserListEndpoint()
     {
-        add_rewrite_rule('^user-list/?$', 'index.php?user_list_template=1', 'top');
+        $custom_endpoint = get_option('user_spotlight_pro_endpoint', '/user-list');
+        $custom_endpoint = trim($custom_endpoint, '/');
+        $custom_endpoint_regex = "^{$custom_endpoint}$";
+
+        add_rewrite_rule($custom_endpoint_regex, 'index.php?user_list_template=1', 'top');
         add_rewrite_tag('%user_list_template%', '([^&]+)');
         add_rewrite_tag('%json%', '([^&]+)');
     }
@@ -46,7 +50,7 @@ class UserApi
     {
         add_rewrite_rule('^user-details/?$', 'index.php?user_details_template_file=1', 'top');
         add_rewrite_tag('%user_details_template_file%', '([^&]+)');
-        
+
         add_rewrite_rule(
             '^user-details/([^/]+)/?$',
             'index.php?user_details_template=1&user_id=$matches[1]',
@@ -56,7 +60,7 @@ class UserApi
         add_rewrite_tag('%user_id%', '([^&]+)');
         add_rewrite_tag('%json%', '([^&]+)');
     }
-    
+
     /**
      * Fetches users from the external API.
      *
@@ -116,7 +120,7 @@ class UserApi
     public function renderTemplate()
     {
         global $wp_query;
-    
+
         if (
             isset($wp_query->query_vars['user_list_template'])
             && $wp_query->query_vars['user_list_template'] == 1
@@ -135,7 +139,7 @@ class UserApi
             exit;
         }
     }
-    
+
 
 
     /**
@@ -148,7 +152,7 @@ class UserApi
         global $wp_query;
         // Fetch the user data from the API
         $user_data = $this->fetchUsers();
-    
+
         // Check if the 'json' query variable is set and render the JSON output
         if (isset($wp_query->query_vars['json']) && $wp_query->query_vars['json'] == 1) {
             header('Content-Type: application/json');
@@ -159,7 +163,7 @@ class UserApi
         }
         exit;
     }
-    
+
     /**
      * Renders the user details template.
      *

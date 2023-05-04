@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace UserSpotlightPro;
 
 use UserSpotlightPro\REST_API\ApiService;
+use UserSpotlightPro\Settings\PluginOptions;
 
 class UserSpotlightPro
 {
@@ -12,5 +13,8 @@ class UserSpotlightPro
     {
         $apiService = new ApiService();
         $apiService->init();
+
+        $pluginOptions = new PluginOptions();
+        $pluginOptions->init();
     }
 }
