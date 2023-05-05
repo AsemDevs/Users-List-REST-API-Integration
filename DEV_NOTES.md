@@ -110,8 +110,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 
 ## Improvements and Future Work
 
-- Cache
-- Error handling
-- Unit testing (in progress)
+- Enhance error handling by providing more detailed error messages.
+- Unit testing (To Add more test scenarios).
 - Documentation
 - Improve accessibility and responsiveness for more presentable design.

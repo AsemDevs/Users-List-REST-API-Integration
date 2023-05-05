@@ -39,7 +39,6 @@ class UserApi
 
         add_rewrite_rule($custom_endpoint_regex, 'index.php?user_list_template=1', 'top');
         add_rewrite_tag('%user_list_template%', '([^&]+)');
-        add_rewrite_tag('%json%', '([^&]+)');
     }
 
     /**
@@ -47,7 +46,6 @@ class UserApi
      *
      * @return void
      */
-
     private function addUserDetailsEndpoint()
     {
         add_rewrite_rule('^user-details/?$', 'index.php?user_details_template_file=1', 'top');
@@ -60,7 +58,6 @@ class UserApi
         );
         add_rewrite_tag('%user_details_template%', '([^&]+)');
         add_rewrite_tag('%user_id%', '([^&]+)');
-        add_rewrite_tag('%json%', '([^&]+)');
     }
 
     /**
@@ -68,7 +65,6 @@ class UserApi
      *
      * @return array An array of user data.
      */
-
     public function fetchUsers()
     {
         $transient_key = 'user_spotlight_pro_users';
@@ -114,6 +110,7 @@ class UserApi
 
         return $user_details;
     }
+
     /**
      * Renders the appropriate template based on the query variables.
      *
@@ -158,6 +155,14 @@ class UserApi
         }
     }
 
+    public function getUsersByPage($page, $users_per_page)
+    {
+        $users = $this->fetchUsers();
+        $start = ($page - 1) * $users_per_page;
+        $end = min($start + $users_per_page, count($users));
+
+        return array_slice($users, $start, $end - $start);
+    }
 
     /**
      * Renders the user list template.
@@ -167,17 +172,18 @@ class UserApi
     public function renderUserList()
     {
         global $wp_query;
-        // Fetch the user data from the API
-        $user_data = $this->fetchUsers();
 
-        // Check if the 'json' query variable is set and render the JSON output
-        if (isset($wp_query->query_vars['json']) && $wp_query->query_vars['json'] == 1) {
-            header('Content-Type: application/json');
-            echo json_encode($user_data);
-        } else {
-            // Otherwise, render the HTML template
-            include plugin_dir_path(__FILE__) . '../templates/user-table-template.php';
-        }
+        $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $users_per_page = intval(get_option('user_spotlight_pro_items_per_page', '10'));
+
+        $user_data = $this->getUsersByPage($current_page, $users_per_page);
+
+        $total_users = count($this->fetchUsers());
+        $total_pages = ceil($total_users / $users_per_page);
+
+        $template_vars = compact('user_data', 'current_page', 'total_users', 'total_pages', 'users_per_page');
+        extract($template_vars);
+        include plugin_dir_path(__FILE__) . '../templates/user-table-template.php';
         exit;
     }
 
@@ -191,20 +197,10 @@ class UserApi
         global $wp_query;
         $user_id = $wp_query->query_vars['user_id'];
 
-        // Fetch the user details from the API
         $user_details = $this->fetchUserDetails($user_id);
-
-        // Extract user_details array to variables
         extract($user_details);
 
-        // Check if the 'json' query variable is set and render the JSON output
-        if (isset($wp_query->query_vars['json']) && $wp_query->query_vars['json'] == 1) {
-            header('Content-Type: application/json');
-            echo json_encode($user_details);
-        } else {
-            // Otherwise, render the HTML template
-            include plugin_dir_path(__FILE__) . '../templates/user-details-template.php';
-        }
+        include plugin_dir_path(__FILE__) . '../templates/user-details-template.php';
         exit;
     }
 }

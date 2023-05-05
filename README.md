@@ -54,6 +54,12 @@ You can adjust the cache duration by modifying the `HOUR_IN_SECONDS` constant in
 
 ## Customization
 
+You can customize the plugin by modifying the following options:
+
+- Open Settings > User Spotlight Pro in your WordPress admin dashboard.
+- Custom endpoint: Change the default `/user-list` endpoint to your preferred URLs.
+- Number of users per page: Adjust the number of users displayed per page.
+
 User Spotlight Pro uses Bootstrap for its responsive design and styling. You can easily customize the appearance by modifying the Bootstrap classes in the template files located in the `templates` directory.
 
 If you want to use a different CSS framework or your custom styles, you can replace the Bootstrap classes with your desired classes and update the styles accordingly.

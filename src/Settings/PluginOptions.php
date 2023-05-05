@@ -31,14 +31,14 @@ class PluginOptions
 
     public function settings_page()
     {
-    ?>
+?>
         <div class="wrap">
             <h1>User Spotlight Pro Settings</h1>
             <form method="post" action="options.php">
                 <?php
                 settings_fields('user_spotlight_pro');
                 do_settings_sections('user_spotlight_pro');
-    
+
                 $endpoint = get_option('user_spotlight_pro_endpoint', '/user-list');
                 $users_per_page = get_option('user_spotlight_pro_items_per_page', 5);
                 ?>
@@ -59,7 +59,6 @@ class PluginOptions
                 <?php submit_button(); ?>
             </form>
         </div>
-    <?php
+<?php
     }
-    
 }

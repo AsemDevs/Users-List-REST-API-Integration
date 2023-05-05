@@ -34,24 +34,9 @@ class Assets
             '5.0.2',
             true
         );
-        wp_enqueue_script(
-            'pagination',
-            $plugin_url . 'assets/js/pagination.js',
-            ['jquery'],
-            '1.0.0',
-            true
-        );
 
-        $custom_endpoint = get_option('user_spotlight_pro_endpoint', '/user-list') ?: '/user-list';
-        $users_per_page = get_option('user_spotlight_pro_items_per_page', '5') ?: '5';
-
-        wp_localize_script('pagination', 'UserSpotlightPro', [
-            'customEndpoint' => $custom_endpoint,
-            'usersPerPage' => $users_per_page,
-        ]);
         wp_localize_script('user-details', 'ajax_object', ['ajaxurl' => admin_url('admin-ajax.php')]);
     }
-
 
     /**
      * Enqueues the required styles.
