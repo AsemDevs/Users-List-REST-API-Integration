@@ -35,7 +35,11 @@ class Assets
             true
         );
 
-        wp_localize_script('user-details', 'ajax_object', ['ajaxurl' => admin_url('admin-ajax.php')]);
+        wp_localize_script(
+            'user-details',
+            'ajax_object',
+            ['ajaxurl' => admin_url('admin-ajax.php')]
+        );
     }
 
     /**

@@ -7,7 +7,6 @@ namespace UserSpotlightPro;
 use UserSpotlightPro\REST_API\ApiService;
 use UserSpotlightPro\Settings\PluginOptions;
 
-
 class UserSpotlightPro
 {
     public function init()

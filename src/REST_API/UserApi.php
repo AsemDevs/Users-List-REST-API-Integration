@@ -181,7 +181,13 @@ class UserApi
         $total_users = count($this->fetchUsers());
         $total_pages = ceil($total_users / $users_per_page);
 
-        $template_vars = compact('user_data', 'current_page', 'total_users', 'total_pages', 'users_per_page');
+        $template_vars = compact(
+            'user_data',
+            'current_page',
+            'total_users',
+            'total_pages',
+            'users_per_page'
+        );
         extract($template_vars);
         include plugin_dir_path(__FILE__) . '../templates/user-table-template.php';
         exit;

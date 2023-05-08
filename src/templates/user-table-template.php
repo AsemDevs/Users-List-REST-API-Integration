@@ -27,9 +27,22 @@ declare(strict_types=1);
             <tbody>
                 <?php foreach ($user_data as $user) : ?>
                     <tr data-user-id="<?php echo $user['id']; ?>">
-                        <td><a data-user-id="<?php echo $user['id']; ?>" href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['id']; ?></a></td>
-                        <td><a data-user-id="<?php echo $user['id']; ?>" href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['name']; ?></a></td>
-                        <td><a data-user-id="<?php echo $user['id']; ?>" href="<?php echo home_url("/user-details/{$user['id']}"); ?>"><?php echo $user['username']; ?></a></td>
+                        <td>
+                            <a data-user-id="<?php echo $user['id']; ?>"
+                            href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
+                                <?php echo $user['id']; ?>
+                            </a>
+                        </td>
+                        <td><a data-user-id="<?php echo $user['id']; ?>"
+                        href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
+                                <?php echo $user['name']; ?>
+                            </a>
+                        </td>
+                        <td><a data-user-id="<?php echo $user['id']; ?>"
+                        href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
+                                <?php echo $user['username']; ?>
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -38,7 +51,8 @@ declare(strict_types=1);
             <ul class="pagination justify-content-center">
                 <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
                     <li class="page-item <?php echo $current_page === $i ? 'active' : ''; ?>">
-                        <a class="page-link" href="<?php echo esc_url(add_query_arg('page', $i)); ?>">
+                        <a class="page-link"
+                        href="<?php echo esc_url(add_query_arg('page', $i)); ?>">
                             <?php echo $i; ?>
                         </a>
                     </li>
