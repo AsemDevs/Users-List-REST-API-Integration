@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace UserSpotlightPro\REST_API;
 
+/**
+ * Class UserApi
+ * Handles the interaction with the REST API to fetch user data and manage custom endpoints.
+ */
+
 class UserApi
 {
     public function init()
@@ -138,7 +143,11 @@ class UserApi
             exit;
         }
     }
-
+    /**
+     * Handle AJAX request for fetching user details.
+     * It checks for a valid user ID in the POST data, fetches the user details,
+     * and sends a JSON response.
+     */
     public function handle_ajax_request()
     {
         if (isset($_POST['user_id']) && !empty($_POST['user_id'])) {
@@ -154,7 +163,13 @@ class UserApi
             wp_send_json_error(['message' => 'Invalid user ID.']);
         }
     }
-
+    /**
+     * Get a paginated list of users.
+     *
+     * @param int $page The current page number.
+     * @param int $users_per_page The number of users to display per page.
+     * @return array The user array for the specified page.
+     */
     public function getUsersByPage($page, $users_per_page)
     {
         $users = $this->fetchUsers();
@@ -174,7 +189,7 @@ class UserApi
         global $wp_query;
 
         $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $users_per_page = intval(get_option('user_spotlight_pro_items_per_page', '10'));
+        $users_per_page = intval(get_option('user_spotlight_pro_users_per_page', '10'));
 
         $user_data = $this->getUsersByPage($current_page, $users_per_page);
 
@@ -189,7 +204,7 @@ class UserApi
             'users_per_page'
         );
         extract($template_vars);
-        include plugin_dir_path(__FILE__) . '../templates/user-table-template.php';
+        include plugin_dir_path(__DIR__) . '/templates/user-table-template.php';
         exit;
     }
 
@@ -206,7 +221,7 @@ class UserApi
         $user_details = $this->fetchUserDetails($user_id);
         extract($user_details);
 
-        include plugin_dir_path(__FILE__) . '../templates/user-details-template.php';
+        include plugin_dir_path(__DIR__) . '/templates/user-details-template.php';
         exit;
     }
 }

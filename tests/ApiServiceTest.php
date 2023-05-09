@@ -9,8 +9,6 @@ use PHPUnit\Framework\TestCase;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 
-
-
 class ApiServiceTest extends TestCase
 {
     protected function setUp(): void
@@ -27,7 +25,7 @@ class ApiServiceTest extends TestCase
 
     public function testFetchUserDetails()
     {
-        $userApi = new UserApi();
+        $UserApi = new UserApi();
         $userId = 1;
 
         // Mock the get_transient() function
@@ -55,7 +53,7 @@ class ApiServiceTest extends TestCase
 
         Functions\when('set_transient')->justReturn(true);
 
-        $userDetails = $userApi->fetchUserDetails($userId);
+        $userDetails = $UserApi->fetchUserDetails($userId);
 
         $this->assertIsArray($userDetails);
         $this->assertArrayHasKey('id', $userDetails);

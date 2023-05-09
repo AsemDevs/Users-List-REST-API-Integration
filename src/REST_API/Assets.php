@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace UserSpotlightPro\REST_API;
 
+/**
+ * Class Assets
+ * Handles the enqueuing of required scripts and styles for the plugin.
+ */
 class Assets
 {
     public function init()
@@ -19,7 +23,7 @@ class Assets
      */
     public function enqueueScripts()
     {
-        $plugin_url = plugin_dir_url(dirname(__FILE__));
+        $plugin_url = plugin_dir_url(__DIR__);
         wp_enqueue_script(
             'user-details',
             $plugin_url . 'assets/js/user-details.js',
@@ -49,7 +53,7 @@ class Assets
      */
     public function enqueueStyles()
     {
-        $plugin_url = plugin_dir_url(dirname(__FILE__));
+        $plugin_url = plugin_dir_url(__DIR__);
         wp_enqueue_style(
             'bootstrap-css',
             $plugin_url . '../vendor/twbs/bootstrap/dist/css/bootstrap.min.css',
