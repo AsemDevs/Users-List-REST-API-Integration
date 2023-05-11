@@ -1,6 +1,6 @@
 # User Spotlight Pro
 
-User Spotlight Pro is a WordPress plugin that fetches and displays a table of users from an external API. It also allows you to view individual user details by clicking on the user's name.
+User Spotlight Pro is a WordPress plugin that fetches and displays a table of users from an external API. It also allows you to view individual user details by clicking on the user's name, email, or username. The plugin uses AJAX to fetch user details without reloading the page, providing a seamless experience. It also features customizable endpoints and paginated user lists for better flexibility and scalability.
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@ User Spotlight Pro is a WordPress plugin that fetches and displays a table of us
 ## Usage
 
 1. After activating the plugin, visit the `/user-list` endpoint on your WordPress site to see a table of users fetched from the external API.
-2. Click on a user's name to view their details on the same page without reloading.
+2. Click on a user's name, email, or username to view their details on the same page without reloading. This is achieved using AJAX to fetch user details asynchronously.
 
 ## Development
 
