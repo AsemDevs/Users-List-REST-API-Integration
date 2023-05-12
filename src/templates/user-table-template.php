@@ -28,17 +28,19 @@ declare(strict_types=1);
                 <?php foreach ($user_data as $user) : ?>
                     <tr data-user-id="<?php echo $user['id']; ?>">
                         <td>
-                            <a data-user-id="<?php echo $user['id']; ?>"
+                        <a data-user-id="<?php echo $user['id']; ?>"
                             href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
                                 <?php echo $user['id']; ?>
                             </a>
                         </td>
-                        <td><a data-user-id="<?php echo $user['id']; ?>"
+                        <td>
+                        <a data-user-id="<?php echo $user['id']; ?>"
                         href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
                                 <?php echo $user['name']; ?>
                             </a>
                         </td>
-                        <td><a data-user-id="<?php echo $user['id']; ?>"
+                        <td>
+                        <a data-user-id="<?php echo $user['id']; ?>"
                         href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
                                 <?php echo $user['username']; ?>
                             </a>
@@ -62,7 +64,9 @@ declare(strict_types=1);
 
     </div>
     <div id="user-details-container" class="container">
-        <!-- User details will be displayed here -->
+        <div id="hidden-user-details-template" style="display:none;">
+            <?php include __DIR__ . '/user-details-template.php'; ?>
+        </div>
     </div>
     <div id="error-container" class="error-message container mt-3"></div>
 

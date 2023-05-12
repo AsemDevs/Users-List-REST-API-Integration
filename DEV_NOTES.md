@@ -65,6 +65,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - The endpoint can be customized via settings > User Spotlight Pro.
 - The Endpoint is now customizable via options but there should be more updates for the pagination as it depends on the custom endpoint.
 - Process the AJAX request in the backend, fetch user details from the external API, it's better for caching and security.
+- Removed the rewrite rule for user details as it is not necessary and used the template with full user details.
 - For testing and Inpsyde's coding standards, I have installed PHPUnit and Inpsyde code standard using composer and the following commands:
 
     ```zsh
@@ -86,6 +87,8 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
       - templates/
         - user-table-template.php
         - user-details-template.php
+      - Settings/
+        - PluginOptions.php
       - assets/
         - js/
           - user-details.js

@@ -28,7 +28,6 @@ class UserApi
     public function addEndpoint()
     {
         $this->addUserListEndpoint();
-        $this->addUserDetailsEndpoint();
     }
 
     /**
@@ -44,25 +43,6 @@ class UserApi
 
         add_rewrite_rule($custom_endpoint_regex, 'index.php?user_list_template=1', 'top');
         add_rewrite_tag('%user_list_template%', '([^&]+)');
-    }
-
-    /**
-     * Adds user details endpoint and rewrite tags.
-     *
-     * @return void
-     */
-    private function addUserDetailsEndpoint()
-    {
-        add_rewrite_rule('^user-details/?$', 'index.php?user_details_template_file=1', 'top');
-        add_rewrite_tag('%user_details_template_file%', '([^&]+)');
-
-        add_rewrite_rule(
-            '^user-details/([^/]+)/?$',
-            'index.php?user_details_template=1&user_id=$matches[1]',
-            'top'
-        );
-        add_rewrite_tag('%user_details_template%', '([^&]+)');
-        add_rewrite_tag('%user_id%', '([^&]+)');
     }
 
     /**
@@ -135,12 +115,6 @@ class UserApi
             && $wp_query->query_vars['user_details_template'] == 1
         ) {
             $this->renderUserDetails();
-        } elseif (
-            isset($wp_query->query_vars['user_details_template_file'])
-            && $wp_query->query_vars['user_details_template_file'] == 1
-        ) {
-            include plugin_dir_path(__FILE__) . '../templates/user-details-template.php';
-            exit;
         }
     }
     /**
@@ -189,7 +163,7 @@ class UserApi
         global $wp_query;
 
         $current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $users_per_page = intval(get_option('user_spotlight_pro_users_per_page', '10'));
+        $users_per_page = intval(get_option('user_spotlight_pro_users_per_page', '5'));
 
         $user_data = $this->getUsersByPage($current_page, $users_per_page);
 
@@ -218,10 +192,20 @@ class UserApi
         global $wp_query;
         $user_id = $wp_query->query_vars['user_id'];
 
+        // Fetch the user details from the API
         $user_details = $this->fetchUserDetails($user_id);
+
+        // Extract user_details array to variables
         extract($user_details);
 
-        include plugin_dir_path(__DIR__) . '/templates/user-details-template.php';
+        // Check if the 'json' query variable is set and render the JSON output
+        if (isset($wp_query->query_vars['json']) && $wp_query->query_vars['json'] == 1) {
+            header('Content-Type: application/json');
+            echo json_encode($user_details);
+        } else {
+            // Otherwise, render the HTML template
+            include plugin_dir_path(__DIR__) . '/templates/user-details-template.php';
+        }
         exit;
     }
 }
