@@ -41,7 +41,7 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Make the endpoint customizable via options. ✅
 - Make the pagination depend on the custom endpoint. ✅
 - Use the defual endpoint after reactivating the plugin. ✅
-- *TODO:* Flush rewrite rules to happen automatically when the endpoint is changed.
+- Flush rewrite rules to happen automatically when the endpoint is changed. ✅
 - Make the Number of users per page customizable via options. ✅
 - Documentation. ✅
 

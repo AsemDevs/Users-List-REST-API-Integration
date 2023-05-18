@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container">
     <h1 class="text-center mb-4">User Details</h1>
     <div class="card">
         <div class="card-header">

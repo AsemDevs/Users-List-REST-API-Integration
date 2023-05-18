@@ -17,6 +17,12 @@ class PluginOptions
     {
         add_action('admin_menu', [$this, 'register_settings_page']);
         add_action('admin_init', [$this, 'register_settings']);
+        add_action(
+            'update_option_user_spotlight_pro_endpoint',
+            [$this, 'flush_rules_on_endpoint_change'],
+            10,
+            2
+        );
     }
 
     /**
@@ -31,6 +37,14 @@ class PluginOptions
             'user-spotlight-pro',
             [$this, 'settings_page']
         );
+    }
+    public function flush_rules_on_endpoint_change($old_value, $value)
+    {
+        if ($old_value !== $value) {
+            $userApi = new \UserSpotlightPro\REST_API\UserApi();
+            $userApi->addEndpoint();
+            flush_rewrite_rules();
+        }
     }
 
     /**

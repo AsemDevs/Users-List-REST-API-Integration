@@ -22,7 +22,12 @@ jQuery(document).ready(function ($) {
       method: "POST",
       body: data,
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
       .then((result) => {
         if (result.success) {
           const userDetails = result.data;
@@ -66,8 +71,16 @@ jQuery(document).ready(function ($) {
             .text(userDetails.company.catchPhrase);
           userDetailsContainer.find(".user-bs").text(userDetails.company.bs);
         } else {
-          alert(result.data);
+          showError(result.data);
         }
+      })
+      .catch((error) => {
+        showError(error.message);
       });
+  }
+
+  function showError(message) {
+    const errorContainer = $("#error-container");
+    errorContainer.html('<p class="alert alert-danger">' + message + '</p>');
   }
 });

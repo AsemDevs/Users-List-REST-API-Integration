@@ -15,61 +15,66 @@ declare(strict_types=1);
 
 <body <?php body_class(); ?>>
     <div class="user-table container mt-5">
-        <table id="user-table" class="table table-striped table-hover">
-            <caption class="text-center">Users List</caption>
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Username</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($user_data as $user) : ?>
-                    <tr data-user-id="<?php echo $user['id']; ?>">
-                        <td>
-                        <a data-user-id="<?php echo $user['id']; ?>"
-                            href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
-                                <?php echo $user['id']; ?>
-                            </a>
-                        </td>
-                        <td>
-                        <a data-user-id="<?php echo $user['id']; ?>"
-                        href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
-                                <?php echo $user['name']; ?>
-                            </a>
-                        </td>
-                        <td>
-                        <a data-user-id="<?php echo $user['id']; ?>"
-                        href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
-                                <?php echo $user['username']; ?>
-                            </a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <div class="pagination-container">
-            <ul class="pagination justify-content-center">
-                <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
-                    <li class="page-item <?php echo $current_page === $i ? 'active' : ''; ?>">
-                        <a class="page-link"
-                        href="<?php echo esc_url(add_query_arg('page', $i)); ?>">
-                            <?php echo $i; ?>
-                        </a>
-                    </li>
-                <?php endfor; ?>
-            </ul>
-        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <table id="user-table" class="table table-striped table-hover">
+                    <caption class="text-center">Users List</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($user_data as $user) : ?>
+                            <tr data-user-id="<?php echo $user['id']; ?>">
+                                <td>
+                                    <a data-user-id="<?php echo $user['id']; ?>"
+                                    href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
+                                        <?php echo $user['id']; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-user-id="<?php echo $user['id']; ?>"
+                                    href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
+                                        <?php echo $user['name']; ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-user-id="<?php echo $user['id']; ?>"
+                                    href="<?php echo home_url("/user-details/{$user['id']}"); ?>">
+                                        <?php echo $user['username']; ?>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="pagination-container">
+                    <ul class="pagination justify-content-center">
+                        <?php for ($i = 1; $i <= $total_pages; $i++) : ?>
+                            <li class="page-item <?php echo $current_page === $i ? 'active' : ''; ?>">
+                                <a class="page-link"
+                                href="<?php echo esc_url(add_query_arg('page', $i)); ?>">
+                                    <?php echo $i; ?>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
+                </div>
+                <div id="error-container" class="error-message container mt-3"></div>
 
-    </div>
-    <div id="user-details-container" class="container">
-        <div id="hidden-user-details-template" style="display:none;">
-            <?php include __DIR__ . '/user-details-template.php'; ?>
+            </div>
+            <div class="col-md-6">
+                <div id="user-details-container">
+                    <div id="hidden-user-details-template" style="display:none;">
+                        <?php include __DIR__ . '/user-details-template.php'; ?>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div id="error-container" class="error-message container mt-3"></div>
-
     <?php wp_footer(); ?>
 </body>
 
