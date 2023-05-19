@@ -17,6 +17,7 @@ declare(strict_types=1);
     <div class="user-table container mt-5">
         <div class="row">
             <div class="col-md-6">
+                <h1 class="text-center mb-4">User List</h1>
                 <table id="user-table" class="table table-striped table-hover">
                     <caption class="text-center">Users List</caption>
                     <thead>
@@ -63,8 +64,6 @@ declare(strict_types=1);
                         <?php endfor; ?>
                     </ul>
                 </div>
-                <div id="error-container" class="error-message container mt-3"></div>
-
             </div>
             <div class="col-md-6">
                 <div id="user-details-container">

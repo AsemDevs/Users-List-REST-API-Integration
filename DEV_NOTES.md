@@ -43,6 +43,10 @@ This file contains my thoughts, clarifications, and pseudocode while working on 
 - Use the defual endpoint after reactivating the plugin. ✅
 - Flush rewrite rules to happen automatically when the endpoint is changed. ✅
 - Make the Number of users per page customizable via options. ✅
+- Make The Caching time customizable via options.
+- Use REST API for the custom endpoint instead of AJAX. ✅
+- Add a button in the plugin options page to clear the cache. ✅
+- Add a new feature to display the user's posts in the user details page.
 - Documentation. ✅
 
 ## Implementation

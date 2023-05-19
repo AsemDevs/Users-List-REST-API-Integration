@@ -61,6 +61,12 @@ class PluginOptions
      */
     public function settings_page()
     {
+        if (isset($_POST['clear_cache'])) {
+            $userApi = new \UserSpotlightPro\REST_API\UserApi();
+            $userApi->clear_transients();
+            echo '<div class="notice notice-success
+             is-dismissible"><p>Cache cleared successfully.</p></div>';
+        }
         ?>
         <div class="wrap">
             <h1>User Spotlight Pro Settings</h1>
@@ -91,7 +97,14 @@ class PluginOptions
                 </table>
                 <?php submit_button(); ?>
             </form>
+
+            <!-- Clear Cache Form -->
+            <form method="post">
+                <input type="submit" name="clear_cache"
+                class="button button-secondary" value="Clear Cache">
+            </form>
         </div>
+
         <?php
     }
 }

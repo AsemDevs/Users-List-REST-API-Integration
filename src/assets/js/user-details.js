@@ -1,4 +1,6 @@
 jQuery(document).ready(function ($) {
+  let userDetailsTemplate = $("#hidden-user-details-template").html();
+
   $("tbody").on("click", "tr[data-user-id] a", function (event) {
     event.preventDefault();
     const userId = $(this).data("user-id");
@@ -9,18 +11,12 @@ jQuery(document).ready(function ($) {
     const errorContainer = $("#error-container");
     errorContainer.html(""); // Clear any previous error messages
 
-    const userDetailsTemplate = $("#hidden-user-details-template").html();
-    showUserDetails(userId, userDetailsTemplate);
+    showUserDetails(userId);
   }
 
-  function showUserDetails(userId, userDetailsTemplate) {
-    const data = new FormData();
-    data.append("action", "get_user_details");
-    data.append("user_id", userId);
-
-    fetch(ajax_object.ajaxurl, {
-      method: "POST",
-      body: data,
+  function showUserDetails(userId) {
+    fetch(`/wp-json/user_spotlight_pro/v1/user/${userId}`, {
+      method: "GET",
     })
       .then((response) => {
         if (!response.ok) {
@@ -28,59 +24,40 @@ jQuery(document).ready(function ($) {
         }
         return response.json();
       })
-      .then((result) => {
-        if (result.success) {
-          const userDetails = result.data;
-          const userDetailsContainer = $("#user-details-container");
+      .then((userDetails) => {
+        const userDetailsContainer = $("#user-details-container");
 
-          userDetailsContainer.html(userDetailsTemplate);
+        userDetailsContainer.html(userDetailsTemplate);
 
-          userDetailsContainer.find(".user-id").text(userDetails.id);
-          userDetailsContainer.find(".user-name").text(userDetails.name);
-          userDetailsContainer
-            .find(".user-username")
-            .text(userDetails.username);
-          userDetailsContainer.find(".user-email").text(userDetails.email);
-          userDetailsContainer.find(".user-phone").text(userDetails.phone);
-          userDetailsContainer.find(".user-website").text(userDetails.website);
+        userDetailsContainer.find(".user-id").text(userDetails.id);
+        userDetailsContainer.find(".user-name").text(userDetails.name);
+        userDetailsContainer.find(".user-username").text(userDetails.username);
+        userDetailsContainer.find(".user-email").text(userDetails.email);
+        userDetailsContainer.find(".user-phone").text(userDetails.phone);
+        userDetailsContainer.find(".user-website").text(userDetails.website);
 
-          userDetailsContainer
-            .find(".user-street")
-            .text(userDetails.address.street);
-          userDetailsContainer
-            .find(".user-suite")
-            .text(userDetails.address.suite);
-          userDetailsContainer
-            .find(".user-city")
-            .text(userDetails.address.city);
-          userDetailsContainer
-            .find(".user-zipcode")
-            .text(userDetails.address.zipcode);
-          userDetailsContainer
-            .find(".user-lat")
-            .text(userDetails.address.geo.lat);
-          userDetailsContainer
-            .find(".user-lng")
-            .text(userDetails.address.geo.lng);
+        userDetailsContainer.find(".user-street").text(userDetails.address.street);
+        userDetailsContainer.find(".user-suite").text(userDetails.address.suite);
+        userDetailsContainer.find(".user-city").text(userDetails.address.city);
+        userDetailsContainer.find(".user-zipcode").text(userDetails.address.zipcode);
+        userDetailsContainer.find(".user-lat").text(userDetails.address.geo.lat);
+        userDetailsContainer.find(".user-lng").text(userDetails.address.geo.lng);
 
-          userDetailsContainer
-            .find(".user-company-name")
-            .text(userDetails.company.name);
-          userDetailsContainer
-            .find(".user-catchPhrase")
-            .text(userDetails.company.catchPhrase);
-          userDetailsContainer.find(".user-bs").text(userDetails.company.bs);
-        } else {
-          showError(result.data);
-        }
+        userDetailsContainer.find(".user-company-name").text(userDetails.company.name);
+        userDetailsContainer.find(".user-catchPhrase").text(userDetails.company.catchPhrase);
+        userDetailsContainer.find(".user-bs").text(userDetails.company.bs);
       })
       .catch((error) => {
-        showError(error.message);
+        // Check if the error.message property exists
+        let message = error.message ? error.message : JSON.stringify(error);
+        showError(message);
       });
   }
 
+
   function showError(message) {
-    const errorContainer = $("#error-container");
-    errorContainer.html('<p class="alert alert-danger">' + message + '</p>');
+    const userDetailsContainer = $("#user-details-container");
+    userDetailsContainer.html('<p class="alert alert-danger">' + message + '</p>');
   }
+
 });

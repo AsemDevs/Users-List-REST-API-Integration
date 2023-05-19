@@ -15,8 +15,8 @@ class UserApi
     {
         add_action('init', [$this, 'addEndpoint']);
         add_action('template_redirect', [$this, 'renderTemplate']);
-        add_action('wp_ajax_get_user_details', [$this, 'handle_ajax_request']);
-        add_action('wp_ajax_nopriv_get_user_details', [$this, 'handle_ajax_request']);
+        add_action('rest_api_init', [$this, 'registerRestRoute']);  // Add this line
+
     }
 
     /**
@@ -44,6 +44,20 @@ class UserApi
         add_rewrite_rule($custom_endpoint_regex, 'index.php?user_list_template=1', 'top');
         add_rewrite_tag('%user_list_template%', '([^&]+)');
     }
+
+        /**
+     * Registers a custom REST route for fetching user details.
+     *
+     * @return void
+     */
+    public function registerRestRoute()
+    {
+        register_rest_route('user_spotlight_pro/v1', '/user/(?P<id>\d+)', [
+            'methods'  => 'GET',
+            'callback' => [$this, 'fetchUserDetailsEndpoint'],
+        ]);
+    }
+
 
     /**
      * Fetches users from the external API.
@@ -75,25 +89,72 @@ class UserApi
      * @param  int $user_id The ID of the user to fetch details for.
      * @return array An array of user details.
      */
-
     public function fetchUserDetails($user_id)
     {
         $transient_key = 'user_spotlight_pro_user_details_' . $user_id;
         $user_details = get_transient($transient_key);
-
+    
         if ($user_details === false) {
             $api_url = 'https://jsonplaceholder.typicode.com/users/' . $user_id;
             $response = wp_remote_get($api_url);
-
+    
             if (is_wp_error($response)) {
                 return [];
             }
-
+    
             $user_details = json_decode(wp_remote_retrieve_body($response), true);
             set_transient($transient_key, $user_details, HOUR_IN_SECONDS);
+    
+            // Store the user ID in a separate option
+            $userIds = get_option('user_spotlight_pro_user_ids', []);
+            if (is_array($userIds)) {
+                $userIds[] = $user_id;
+                update_option('user_spotlight_pro_user_ids', $userIds);
+            } else {
+                // Handle error or do something else when $userIds is not an array
+            }
+        }
+    
+        return $user_details;
+    }
+    
+    /**
+     * Fetches user details and returns it as a REST response.
+     *
+     * @param WP_REST_Request $request The request.
+     * @return WP_REST_Response The response.
+     */
+    public function fetchUserDetailsEndpoint(\WP_REST_Request $request)
+    {
+        $user_id = $request->get_param('id');
+        $user_details = $this->fetchUserDetails($user_id);
+
+        if (empty($user_details)) {
+            return new \WP_Error('no_user', 'Invalid user ID.', ['status' => 404]);
         }
 
-        return $user_details;
+        $response = new \WP_REST_Response($user_details);
+        $response->set_status(200);
+
+        return $response;
+    }
+    
+   /**
+     * Clear the transient data for users and user details.
+     *
+     * The function deletes the transient that stores the users fetched from the API
+     */
+    public function clear_transients() {
+        // Clear the users transient
+        delete_transient('user_spotlight_pro_users');
+    
+        // Clear the user details transients
+        $users = $this->fetchUsers();
+    
+        foreach ($users as $user) {
+            $user_id = $user['id'];
+            delete_transient('user_spotlight_pro_user_details_' . $user_id);
+        }
     }
 
     /**
@@ -117,26 +178,7 @@ class UserApi
             $this->renderUserDetails();
         }
     }
-    /**
-     * Handle AJAX request for fetching user details.
-     * It checks for a valid user ID in the POST data, fetches the user details,
-     * and sends a JSON response.
-     */
-    public function handle_ajax_request()
-    {
-        if (isset($_POST['user_id']) && !empty($_POST['user_id'])) {
-            $user_id = intval($_POST['user_id']);
-            $user_details = $this->fetchUserDetails($user_id);
 
-            if (!empty($user_details)) {
-                wp_send_json_success($user_details);
-            } else {
-                wp_send_json_error(['message' => 'User details not found.']);
-            }
-        } else {
-            wp_send_json_error(['message' => 'Invalid user ID.']);
-        }
-    }
     /**
      * Get a paginated list of users.
      *

@@ -22,15 +22,15 @@ class ApiServiceTest extends TestCase
         Monkey\tearDown();
         parent::tearDown();
     }
-
+    
     public function testFetchUserDetails()
     {
         $UserApi = new UserApi();
         $userId = 1;
-
+    
         // Mock the get_transient() function
         Functions\when('get_transient')->justReturn(false);
-
+    
         // Mock the wp_remote_get() function
         Functions\when('wp_remote_get')->justReturn([
             'response' => [
@@ -44,19 +44,23 @@ class ApiServiceTest extends TestCase
                 'email' => 'john.doe@example.com',
             ]),
         ]);
-
+    
         Functions\when('is_wp_error')->justReturn(false);
-
+    
         Functions\when('wp_remote_retrieve_body')->alias(function ($response) {
             return $response['body'];
         });
-
+    
         Functions\when('set_transient')->justReturn(true);
-
+    
+        // Mock the get_option() function
+        Functions\when('get_option')->justReturn('user-spotlight-pro-endpoint');
+    
         $userDetails = $UserApi->fetchUserDetails($userId);
-
+    
         $this->assertIsArray($userDetails);
         $this->assertArrayHasKey('id', $userDetails);
         $this->assertEquals($userId, $userDetails['id']);
     }
+    
 }
